@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSON</title>
+</head>
+<body>
+    <h1>Learn JSON</h1>
+    <div id="output"></div>
+    <script type="text/javascript">
+        var myObj = {
+            "friends": [{
+                "firstName": "Mike"
+                , "lastName": "Jones" 
+           },{
+                "firstName": "John"
+                , "lastName": "Smith"
+           } ,{
+                "firstName": "Laurence"
+                , "lastName": "Svekis"
+           },{
+                "firstName": "Alice"
+                , "lastName": "James"
+           }]
+        }
+        
+        // sample 1
+        // var users = myObj.friends;
+        // var html = '';
+
+        // for(var x in users){
+        //     html += (Number(x)+1) + ' . ' + users[x].firstName + ' ' + users[x].lastName + '<br>'
+        //     console.log(x)
+        // }
+        // document.getElementById('output').innerHTML = html;
+
+        // sample 2
+        let html ='';
+        let output = document.getElementById('output');
+
+        for(x=0;x<myObj.friends.length;x++){
+            html += `${x} ${myObj.friends[x].firstname} ${$myObj.friends[x].lastName} <br/> `
+        }
+
+        output.innerHTML = html;
+        
+    </script>
+</body>
+</html>
