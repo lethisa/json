@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON Task List</title>
+</head>
+
+<body>
+    <h1>JSON Task List</h1>
+    <div id="output">
+        <ul id="taskList"></ul>
+    </div>
+    <form action="" id="myForm">
+        <label for="task">Task</label>
+        <input type="text" name="task" placeholder="add task">
+        <input type="submit" value="Add New Task">
+    </form>
+    <script type="text/javascript">
+
+        // JSON Format
+        // let data = {
+        // "tasks": {
+        //     "Cut Grass": false,
+        //     "Clean Room":false,
+        //     "Go to Gym":true,
+        //     "Make Dinner":false
+        // }
+        // }
+
+        // String Format
+        // let data = '{"tasks":{"CutGrass":false,"CleanRoom":false,"GotoGym":true,"MakeDinner":false}}'
+
+        // let dataJSON = JSON.parse(data)
+        // let output = document.getElementById('output')
+        // let taskList = document.querySelector('#taskList')
+
+        // for (let key in dataJSON.tasks) {
+        //     console.log(key, dataJSON.tasks[key])
+
+        //     let status = !dataJSON.tasks[key] ? '' : 'checked'
+        //     // console.log(status);
+
+        //     let html = `<li> ${key} <input type='checkbox' value='${key}' ${status}></li>`
+        //     taskList.innerHTML += html
+        // }
+        // addEvents()
+
+        // function addEvents(){
+        //     let checkboxes = document.querySelectorAll('#taskList input[type="checkbox"')
+        //     // console.log(checkboxes)
+        //     for(let index in checkboxes){
+        //         checkboxes[index].onchange = updateJSON
+        //     }
+        //     console.log(checkboxes)
+        // }
+
+        // function updateJSON(){
+        //     let key = event.target.value
+        //     console.log(key, event.target.checked)
+        //     dataJSON.tasks[key] = event.target.checked
+        // }
+
+        // console.log(dataJSON)
+
+        // new structure 
+
+        // let data = [
+        //     {
+        //         "info": "Cut Grass",
+        //         "status": false
+        //     },
+        //     {
+        //         "info": "Clean Room",
+        //         "status": false
+        //     },
+        //     {
+        //         "info": "Go to Gym",
+        //         "status": false
+        //     },
+        //     {
+        //         "info": "Make Dinner",
+        //         "status": false
+        //     }
+        // ]
+
+        let dataJSON = ''
+        let output = document.getElementById('output')
+        let taskList = document.querySelector('#taskList')
+        document.getElementById('myForm').addEventListener('submit', function (e) {
+            e.preventDefault()
+            let tempValue = document.querySelector('input[name="task"]').value
+            addNewItem({"info":tempValue, "status":false})
+            // console.log(tempValue)
+        })
+
+        window.onload = function () {
+            if (sessionStorage['task'] != null) {
+                dataJSON = JSON.parse(sessionStorage['task'])
+            } else {
+                let data = '[{"info":"CutGrass","status":false},{"info":"CleanRoom","status":false},{"info":"GotoGym","status":false},{"info":"MakeDinner","status":false}]'
+                dataJSON = JSON.parse(data)
+            }
+            buildCheckboxes(dataJSON)
+        }
+
+        function addNewItem(data){
+            // let status = data.status ? 'checked':''
+            addCheckbox(data, dataJSON.length)
+            // let html = `<li> ${data.info} <input type='checkbox' value='${dataJSON.length}'></li>`
+            dataJSON.push(data)
+            // taskList.innerHTML += html
+        }
+
+        function addCheckbox(data, key){
+            let li = document.createElement('li')
+            let checkbox = document.createElement('input')
+            let textInside = document.createTextNode(data.info)
+
+            checkbox.type = 'checkbox'
+            checkbox.value = key
+            checkbox.checked = data.status
+            checkbox.setAttribute('onchange','updateJSON()')
+            li.appendChild(textInside)
+            li.appendChild(checkbox)
+            document.querySelector('#taskList').appendChild(li)
+        }
+
+        function buildCheckboxes(data) {
+
+            for (let key in data) {
+                // console.log(key, data[key])
+                addCheckbox(data[key], key)
+                // let status = !data[key].status ? '' : 'checked'
+                // let html = `<li>${data[key].info} <input type='checkbox' value='${key}' ${status}></li>`
+                // taskList.innerHTML += html
+            }
+            // addEvents()
+        }
+
+
+
+        // function addEvents() {
+        //     let checkboxes = document.querySelectorAll('#taskList input[type="checkbox"]')
+        //     for (let index in checkboxes) {
+        //         checkboxes[index].onchange = updateJSON
+        //     }
+        //     // console.log(checkboxes)
+        // }
+
+        function updateJSON() {
+            let key = event.target.value
+            // console.log(key, event.target.checked)
+            dataJSON[key].status = event.target.checked
+            sessionStorage['task'] = JSON.stringify(dataJSON)
+        }
+
+    </script>
+</body>
+
+</html>
