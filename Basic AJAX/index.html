@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic AJAX </title>
+</head>
+
+<body>
+    <h1>Basic AJAX</h1>
+    <div id="output"></div>
+        <button id="loadNew">Load</button>
+    
+    <script type="text/javascript">
+
+        // XHR State -> UNSET, OPENED, HEADERS_RECEIVED, LOADING, DONE
+
+        let output = document.getElementById('output')
+        let buttonClick = document.getElementById('loadNew')
+        buttonClick.addEventListener('click', function () {
+            loadAjax()
+        })
+
+        function loadAjax() {
+            let ajax = new XMLHttpRequest()
+            ajax.onreadystatechange = function() {
+                // console.log('state changed', ajax.readyState, ajax.status)
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                    // console.log(ajax.responseText)
+                    let json = JSON.parse(ajax.responseText)
+                    let data = json.results[0]
+                    let message = `${data.name.first} ${data.name.last} <br> <img src='${data.picture.large}'>`
+                    output.innerHTML = message
+                    // console.log(jsonData)
+                }
+            }
+
+            // ajax.onprogress=()=>{
+            //     console.log('PROGRESS',ajax.readyState, ajax.status)
+            // }
+
+            // ajax.onload=()=>{
+            //     console.log('DONE',ajax.readyState,ajax.status)
+            // }
+
+            ajax.open('GET', 'https://randomuser.me/api', true)
+            ajax.send()
+        }
+
+    </script>
+</body>
+
+</html>
