@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document AJAX jQuery</title>
+</head>
+<body>
+    <h1>AJAX jQuery</h1>
+    <div id="output"></div>
+    <button id="clickMe">Click Here</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script>
+        $('#clickMe').click(webData)
+
+        function webData(){
+            let url = 'https://api.spacexdata.com/v2/launches/'
+            $.getJSON(url, output)
+        }
+
+        function output(data){
+            console.log(data)
+            let html=''
+            $.each(data, function(k,v){
+                // console.log(v)
+                // console.log(data[k])
+
+                html +=`<h3>Flight Number ${v.flight_number} </h3>`
+                html += `Details ${v.details} <br/>`
+            })
+            // $('#output').html(`<h2>${data[1].flight_number}</h2><p>${data[1].details}</p>`)
+            $('#output').html(html)
+        }
+
+    </script>
+</body>
+</html>
