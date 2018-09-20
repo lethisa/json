@@ -1,0 +1,52 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "first": "Laurence",
+      "last": "Svekis",
+      "company": "Discovery"
+    },
+    {
+      "first": "Lethisa",
+      "last": "Putri",
+      "company": "Cecakit",
+      "id": 2
+    },
+    {
+      "first": "Deraa",
+      "last": "Pu",
+      "company": "Cec",
+      "id": 3
+    },
+    {
+      "first": "Jason",
+      "last": "Tester",
+      "company": "ACME",
+      "id": 4
+    },
+    {
+      "first": "Jack",
+      "last": "Yui",
+      "company": "ada",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "postId": "4",
+      "body": "ada",
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "test": {
+    "who": "hai"
+  }
+}
